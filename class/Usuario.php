@@ -115,6 +115,19 @@
       ));
     }
 
+    public function delete() {
+      $sql = new Sql();
+
+      $sql->query("DELETE FROM tb_users WHERE id_user = :ID", array(
+        ":ID" => $this->getIdUser()
+      ));
+
+      $this->setIdUser(0);
+      $this->setDescLogin("");
+      $this->setDescPass("");
+      $this->setDtRegister(new DateTime());
+    }
+
     public function __construct($login = "", $pass = "") {
       $this->setDescLogin($login);
       $this->setDescPass($pass);

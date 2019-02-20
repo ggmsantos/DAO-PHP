@@ -36,10 +36,19 @@
 
   // update dos usuarios
 
+  //$usuario = new Usuario();
+
+  //$usuario->loadById(3);
+  //$usuario->update("Professor", "Professor");
+
+  //echo $usuario;
+
+  // deletando usuarios
+
   $usuario = new Usuario();
 
   $usuario->loadById(3);
-  $usuario->update("Professor", "Professor");
+  $usuario->delete();
 
   echo $usuario;
 ?>

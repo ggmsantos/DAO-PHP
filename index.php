@@ -4,8 +4,9 @@
 
   $sql = new Sql();
 
-  $usuarios = $sql->select("SELECT * FROM tb_users");
+  $usuario = new Usuario();
 
-  echo json_encode($usuarios);
+  $usuario->loadById(1);
 
+  echo $usuario;
 ?>

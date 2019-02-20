@@ -46,12 +46,8 @@
       ));
 
       if (count($results[0]) > 0) {
-        $row = $results[0];
-
-        $this->setIdUser($row["id_user"]);
-        $this->setDescLogin($row["desc_login"]);
-        $this->setDescPass($row["desc_pass"]);
-        $this->setDtRegister(new DateTime($row["dt_register"]));
+        
+        $this->setData($results[0]);
       }
     }
 
@@ -78,15 +74,50 @@
       ));
 
       if (count($results[0]) > 0) {
-        $row = $results[0];
+        $this->setData($results[0]);
 
-        $this->setIdUser($row["id_user"]);
-        $this->setDescLogin($row["desc_login"]);
-        $this->setDescPass($row["desc_pass"]);
-        $this->setDtRegister(new DateTime($row["dt_register"]));
       } else {
         throw new Exception("Login e/ou senha inválidos!");
       }
+    }
+
+    public function setData($data) {
+      $this->setIdUser($data["id_user"]);
+      $this->setDescLogin($data["desc_login"]);
+      $this->setDescPass($data["desc_pass"]);
+      $this->setDtRegister(new DateTime($data["dt_register"]));
+    }
+
+    public function insert() {
+      $sql = new Sql();
+
+      $results = $sql->select("CALL sp_users_insert(:LOGIN, :PASS)", array(
+        ":LOGIN" => $this->getDescLogin(),
+        ":PASS" => $this->getDescPass()
+      ));
+
+      if (count($results) > 0) {
+        $this->setData($results[0]);
+      }
+    }
+
+    public function update($login, $pass) {
+
+      $this->setDescLogin($login);
+      $this->setDescPass($pass);
+
+      $sql = new Sql();
+
+      $sql->query("UPDATE tb_users SET desc_login = :LOGIN, desc_pass = :PASS WHERE id_user :ID", array(
+        ":LOGIN" => $this->getDescLogin(),
+        ":PASS" => $this->getDescPass(),
+        ":ID" => $this->getIdUser()
+      ));
+    }
+
+    public function __construct($login = "", $pass = "") {
+      $this->setDescLogin($login);
+      $this->setDescPass($pass);
     }
 
     public function __toString() {

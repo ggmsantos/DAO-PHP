@@ -20,9 +20,26 @@
 
   // carregando um usuario por seu login e senha
 
+  //usuario = new Usuario();
+
+  //$usuario->login("magsa", "3211123");
+
+  //echo $usuario;
+
+  // inserindo usuario novo
+
+  //$aluno = new Usuario("aluno2", "123456");
+
+  //$aluno->insert();
+
+  //echo $aluno;
+
+  // update dos usuarios
+
   $usuario = new Usuario();
 
-  $usuario->login("magsa", "3211123");
+  $usuario->loadById(3);
+  $usuario->update("Professor", "Professor");
 
   echo $usuario;
 ?>
